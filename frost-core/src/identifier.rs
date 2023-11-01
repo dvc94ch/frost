@@ -27,7 +27,8 @@ where
     C: Ciphersuite,
 {
     /// Create a new Identifier from a scalar. For internal use only.
-    fn new(scalar: Scalar<C>) -> Result<Self, Error<C>> {
+    #[cfg_attr(feature = "internals", visibility::make(pub))]
+    pub(crate) fn new(scalar: Scalar<C>) -> Result<Self, Error<C>> {
         if scalar == <<C::Group as Group>::Field>::zero() {
             Err(FieldError::InvalidZeroScalar.into())
         } else {
